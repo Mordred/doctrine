@@ -11,9 +11,9 @@
 namespace Nella\Doctrine\Config;
 
 use Nella\Console\Config\Extension as CExtension,
-	Nette\Config\Configurator,
+	Nette\Configurator,
 	Nette\DI\ContainerBuilder,
-	Nette\Config\Compiler,
+	Nette\DI\Compiler,
 	Nette\Utils\Strings,
 	Symfony\Component\Console\Output\ConsoleOutput,
 	Doctrine\DBAL\Migrations\OutputWriter;
@@ -25,7 +25,7 @@ use Nella\Console\Config\Extension as CExtension,
  *
  * @property array defaults
  */
-class MigrationsExtension extends \Nette\Config\CompilerExtension
+class MigrationsExtension extends \Nette\DI\CompilerExtension
 {
 	const DEFAULT_EXTENSION_NAME = 'migrations';
 
@@ -140,7 +140,7 @@ class MigrationsExtension extends \Nette\Config\CompilerExtension
 	/**
 	 * Register extension to compiler.
 	 *
-	 * @param \Nette\Config\Configurator
+	 * @param \Nette\Configurator
 	 * @param string
 	 */
 	public static function register(Configurator $configurator, $name = self::DEFAULT_EXTENSION_NAME)

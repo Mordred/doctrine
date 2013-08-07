@@ -12,8 +12,8 @@ namespace Nella\Doctrine\Config;
 
 use Nella\Console\Config\Extension as CExtension,
 	Nette\Diagnostics\Debugger,
-	Nette\Config\Compiler,
-	Nette\Config\Configurator,
+	Nette\DI\Compiler,
+	Nette\Configurator,
 	Nette\DI\Container,
 	Nette\Reflection\ClassType,
 	Doctrine\Common\Cache\Cache,
@@ -32,7 +32,7 @@ use Nella\Console\Config\Extension as CExtension,
  *
  * @author	Patrik Votoček
  */
-class Extension extends \Nette\Config\CompilerExtension
+class Extension extends \Nette\DI\CompilerExtension
 {
 	const DEFAULT_EXTENSION_NAME = 'doctrine',
 		EVENT_TAG_NAME = 'doctrineEvent';
@@ -88,7 +88,7 @@ class Extension extends \Nette\Config\CompilerExtension
 		$builder = $this->getContainerBuilder();
 
 		// process custom doctrine services
-		\Nette\Config\Compiler::parseServices($builder, $config, $this->name);
+		\Nette\DI\Compiler::parseServices($builder, $config, $this->name);
 
 		$cache = $builder->addDefinition($this->prefix('cache'))
 			->setClass('Nella\Doctrine\Cache', array('@cacheStorage'));
@@ -303,7 +303,7 @@ class Extension extends \Nette\Config\CompilerExtension
 	/**
 	 * Register extension to compiler.
 	 *
-	 * @param \Nette\Config\Configurator
+	 * @param \Nette\Configurator
 	 * @param string
 	 */
 	public static function register(Configurator $configurator, $name = self::DEFAULT_EXTENSION_NAME)
