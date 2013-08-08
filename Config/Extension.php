@@ -248,13 +248,11 @@ class Extension extends \Nette\DI\CompilerExtension
 
 		if (isset($params['debugger']) && $params['debugger'] === TRUE) {
 			$panel = new ConnectionPanel;
-			if (Debugger::$bar) {
-				Debugger::$bar->addPanel($panel);
-			}
-			Debugger::$blueScreen->addPanel(array($panel, 'renderException'));
+			Debugger::getBar()->addPanel($panel);
+			Debugger::getBlueScreen()->addPanel(array($panel, 'renderException'));
 			$config->setSQLLogger($panel);
 		} else {
-			Debugger::$blueScreen->addPanel('Nette\Database\Diagnostics\ConnectionPanel::renderException');
+			Debugger::getBlueScreen()->addPanel('Nette\Database\Diagnostics\ConnectionPanel::renderException');
 		}
 
 		$cfg = $params['connection'];

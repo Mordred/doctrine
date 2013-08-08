@@ -152,7 +152,7 @@ class ConnectionPanel extends \Nette\Object implements \Nette\Diagnostics\IBarPa
 			$s .= '</table>';
 		}
 		$s .= '</td>';
-		$s .= '<td>' . \Nette\Diagnostics\Helpers::clickableDump($query[self::PARAMS], TRUE) . '</td>';
+		$s .= '<td>' . \Nette\Diagnostics\Dumper::toHtml($query[self::PARAMS]) . '</td>';
 		$s .= '</tr>';
 
 		return $s;
