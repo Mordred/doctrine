@@ -56,7 +56,7 @@ class ConnectionPanel extends \Nette\Object implements \Nette\Diagnostics\IBarPa
 	 * @param array
 	 * @param array
 	 */
-	public function startQuery($sql, array $params = NULL, array $types = NULL)
+	public function startQuery($sql, array $params = array(), array $types = array())
 	{
 		if ($this->explainRunning) {
 			return;
