@@ -59,6 +59,7 @@ class Extension extends \Nette\DI\CompilerExtension
 		'queryCacheDriver' => TRUE,
 		'resultCacheDriver' => NULL,
 		'console' => FALSE,
+		'filters' => array()
 	);
 
 	/**
@@ -164,6 +165,18 @@ class Extension extends \Nette\DI\CompilerExtension
 
 		if (isset($config['console']) && $config['console']) {
 			$this->processConsole($entityManager, $connection);
+		}
+
+		// Add filters to configuration
+		if ($config['filters']) {
+			foreach ($config['filters'] as $name => $filter) {
+				if (is_array($filter)) {
+					$configuration->addSetup('addFilter', array( $name, $filter['class'] ));
+					if ($filter['enable'])
+						$entityManager->addSetup("\$service->getFilters()->enable(?)", array($name));
+				} else
+					$configuration->addSetup('addFilter', array( $name, $filter ));
+			}
 		}
 	}
 
